@@ -52,6 +52,7 @@ app.post('/spark/data/last', async (req, res) => {
 app.post('/spark/data', async (req, res) => {
   try {
     const { partnumber, count } = req.body;
+    console.log(`the partnumber and count is ${partnumber} && ${count}`);
 
     // Basic validation
     if (!partnumber || count == null) { // check for count being null or undefined
