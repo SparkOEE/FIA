@@ -360,15 +360,16 @@ app.get('/api/machine/counts', async (req, res) => {
   try {
     // Example fetching latest counts from your database models
     
-    const latestPart = await PartData.findOne().sort({updatedAt: -1});
+    const latestPart = await PartData.find({}).sort({ updatedAt: -1 }).limit(2);
     const machineSettings = await MachineData.findOne(); // Assuming this holds the target/planned data
+
 
     if (!latestPart || !machineSettings) {
       return res.status(404).json({message: 'Data not found.'});
     }
 
     res.status(200).json({
-      actual: latestPart.count,
+      actual: latestPart[0].count,
       planned: machineSettings.targetValue // Example field, adjust according to your actual schema
     });
   } catch (error) {
